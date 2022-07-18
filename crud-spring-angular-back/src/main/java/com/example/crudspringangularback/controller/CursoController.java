@@ -3,9 +3,9 @@ package com.example.crudspringangularback.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.crudspringangularback.model.Curso;
 import com.example.crudspringangularback.repository.CursoRepository;
@@ -20,9 +20,13 @@ public class CursoController {
 	 
 	
 	@GetMapping
-	public List<Curso> listarAllCursos() {
+	public List<Curso> listarTodos() {
 		return cursoRepository.findAll();
 	}
-	
-	
+
+	@PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED) //Para que devuelva codigo 201 (Objeto creado)
+	public Curso crear(@RequestBody Curso curso){
+		return cursoRepository.save(curso);
+	}
 }

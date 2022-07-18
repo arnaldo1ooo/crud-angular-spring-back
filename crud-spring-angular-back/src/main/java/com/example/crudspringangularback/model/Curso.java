@@ -23,8 +23,10 @@ public class Curso {
 	private Long id;
 	
 	@Column(name="cur_nombre", length = 200, nullable = false)
+	@JsonProperty("nombre")	//Es importante que coincida con el modelo del front
 	private String nombre;
 	
 	@Column(name="cur_categoria", length = 200, nullable = false)
+	@JsonProperty("categoria")
 	private String categoria;
 }
