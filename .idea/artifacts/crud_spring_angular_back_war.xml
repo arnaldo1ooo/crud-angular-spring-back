@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="crud-spring-angular-back:war">
+    <output-path>$PROJECT_DIR$/crud-spring-angular-back/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>crud-spring-angular-back</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="crud-spring-angular-back-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="crud-spring-angular-back:war exploded" />
+    </root>
+  </artifact>
+</component>
