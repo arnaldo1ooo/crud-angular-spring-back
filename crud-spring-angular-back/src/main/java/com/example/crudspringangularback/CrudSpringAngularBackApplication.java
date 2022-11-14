@@ -26,7 +26,7 @@ public class CrudSpringAngularBackApplication {
 			
 			Curso curso = new Curso();
 			curso.setNombre("Angular con Spring");
-			curso.setCategoria("front-end");
+			curso.setCategoria("Front-end");
 			
 			cursoRepository.save(curso);
 		};
