@@ -28,8 +28,22 @@ public class CursoController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Curso> buscarPorId(@PathVariable() Long id){
 		return cursoRepository.findById(id)
-				.map(record -> ResponseEntity.ok().body(record))	//Si encuentra el curso
+				.map(curso -> ResponseEntity.ok().body(curso))	//Si encuentra el curso
 				.orElse(ResponseEntity.notFound().build());		//Sino encuentra nada
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Curso> actualizar(@PathVariable Long id, @RequestBody Curso curso) {
+
+		return cursoRepository.findById(id)
+				.map(cursoFound -> {
+					cursoFound.setNombre(curso.getNombre());
+					cursoFound.setCategoria(curso.getCategoria());
+					Curso cursoActualizado = cursoRepository.save(cursoFound);
+
+					return ResponseEntity.ok().body(cursoActualizado);
+				})
+				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@PostMapping
