@@ -69,6 +69,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.3.19" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.36" />
           <element id="library" level="project" name="Maven: com.h2database:h2:1.4.200" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-actuator:2.6.7" />
         </element>
       </element>
       <element id="directory" name="META-INF">

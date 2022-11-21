@@ -2,7 +2,6 @@ package com.example.crudspringangularback.controller;
 
 import java.util.List;
 
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +24,20 @@ public class CursoController {
 		return cursoRepository.findAll();
 	}
 
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED) //Para que devuelva codigo 201 (Objeto creado)
+    public Curso crear(@RequestBody Curso curso){
+        return cursoRepository.save(curso);
+    }
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Curso> buscarPorId(@PathVariable() Long id){
 		return cursoRepository.findById(id)
 				.map(curso -> ResponseEntity.ok().body(curso))	//Si encuentra el curso
 				.orElse(ResponseEntity.notFound().build());		//Sino encuentra nada
 	}
+
+
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Curso> actualizar(@PathVariable Long id, @RequestBody Curso curso) {
@@ -46,9 +53,14 @@ public class CursoController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED) //Para que devuelva codigo 201 (Objeto creado)
-	public Curso crear(@RequestBody Curso curso){
-		return cursoRepository.save(curso);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+		return cursoRepository.findById(id)
+				.map(regEncontrado -> {
+					cursoRepository.deleteById(id);
+					return ResponseEntity.noContent().<Void>build(); //Se castea de noContent a Void para que el response no reclame
+				})
+				.orElse(ResponseEntity.notFound().build());
 	}
 }
+
