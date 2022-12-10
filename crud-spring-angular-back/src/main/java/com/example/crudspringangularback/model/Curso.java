@@ -29,4 +29,8 @@ public class Curso {
 	@Column(name="cur_categoria", length = 200, nullable = false)
 	@JsonProperty("categoria")
 	private String categoria;
+
+	@Column(name="cur_estado", length = 1, nullable = true)
+	@JsonProperty("estado")
+	private String estado;
 }

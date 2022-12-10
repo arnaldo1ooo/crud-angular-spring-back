@@ -1,6 +1,7 @@
 package com.example.crudspringangularback.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,8 +38,6 @@ public class CursoController {
 				.orElse(ResponseEntity.notFound().build());		//Sino encuentra nada
 	}
 
-
-
 	@PutMapping("/{id}")
 	public ResponseEntity<Curso> actualizar(@PathVariable Long id, @RequestBody Curso curso) {
 
@@ -59,6 +58,18 @@ public class CursoController {
 				.map(regEncontrado -> {
 					cursoRepository.deleteById(id);
 					return ResponseEntity.noContent().<Void>build(); //Se castea de noContent a Void para que el response no reclame
+				})
+				.orElse(ResponseEntity.notFound().build());
+	}
+
+	@PutMapping("/inactivar/{id}")
+	public ResponseEntity<Curso> inactivar(@PathVariable Long id) {
+		return cursoRepository.findById(id)
+				.map(cursoFound -> {
+					cursoFound.setEstado("I");
+					Curso cursoActualizado = cursoRepository.save(cursoFound);
+
+					return ResponseEntity.ok().body(cursoActualizado);
 				})
 				.orElse(ResponseEntity.notFound().build());
 	}
